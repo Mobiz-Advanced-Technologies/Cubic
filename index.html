@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>Cubic</title>
+  <link rel="icon" type="image/x-icon" href="Papers/icon.png">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <style>
+    body {
+      font-family: Arial;
+      font-size: 10pt;
+      background: lightcyan;
+    }
+
+    #sidebar {
+      width: 20%;
+      background-color: lightblue;
+      float: left;
+      height: 100vh;
+      background-size: cover;
+      padding: 25px;
+      box-sizing: border-box;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      transition: all 0.1s ease;
+    }
+
+    #main {
+      width: 80%;
+      float: right;
+      height: 100vh;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+
+    #sidebar a {
+      padding: 10px;
+      cursor: pointer;
+      width: 100%;
+      border-radius: 5px;
+      display: block;
+      box-sizing: border-box;
+      text-decoration: none;
+      color: black;
+    }
+
+    a:hover {
+      cursor: pointer;
+      background: lightcyan;
+    }
+
+    #sidebar a img {
+      display: inline-block;
+      width: 20%;
+      margin-right: 10px;
+    }
+
+    .tabcontent button {
+      padding: 10px;
+    }
+
+    #Home {
+      display: flex;
+      text-align: center;
+      place-items: center;
+      justify-content: center;
+      height: 100%;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="sidebar">
+    <a class="tablinks" href="Papers/">
+      <img src="Papers/icon.png">
+      Papers
+    </a>
+
+    <a class="tablinks" href="Present/">
+      <img src="Present/icon.png">
+      Present
+    </a>
+
+    <a class="tablinks" href="Tables/">
+      <img src="Tables/icon.png">
+      Tables
+    </a>
+
+    <a class="tablinks" href="Broadcast/">
+      <img src="Broadcast/icon.png">
+      Broadcast
+    </a>
+  </div>
+  <div id="main">
+    <div id="Home">
+      <div>
+        <img src="Papers/icon.png">
+        <br><br>
+        <h1>Cubic Productivity Suite</h1>
+        ©2023 Mobiz Advanced Technologies
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

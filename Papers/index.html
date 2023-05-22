@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=320, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="icon.png">
+
+  <title>Cubic Papers</title>
+
+  <script defer src="script.js"></script>
+  <script src="https://kit.fontawesome.com/970a0290cd.js" crossorigin="anonymous"></script>
+  <script src="html-docx.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html-to-rtf@2.1.0/app/browser/bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <ul class="ul">
+    <li class="dropdown li">
+      <a href="javascript:void(0)" class="dropbtn">File</a>
+      <div class="dropdown-content">
+        <a href="#" onclick="savedoc()"><i class="fa fa-save"></i> Save Document</a>
+        <input type="file" accept=".html" id="file-input" onchange="importDoc()" style="display: none;" />
+        <a href="#" onclick="document.getElementById('file-input').click();"><i class="fa fa-folder-open"></i> Open Document</a>
+        <hr>
+        <a href="#" onclick="html2pdf(document.getElementById('paper'));"><i class="fa fa-file-pdf"></i> Export PDF</a>
+        <a href="#" onclick="saveAs(htmlDocx.asBlob(document.getElementById('paper').innerHTML), 'Document.docx');"><i class="fa fa-file-word"></i> Export DOCX</a>
+        <a href="#" onclick="exportRTF()"><i class="fa fa-file-lines"></i> Export RTF</a>
+        <a href="#" onclick="exportTXT()"><i class="fa fa-file-lines"></i> Export TXT</a>
+      </div>
+    </li>
+    <li class="dropdown li">
+      <a href="javascript:void(0)" class="dropbtn">Edit</a>
+      <div class="dropdown-content">
+        <a href="#" onclick="document.execCommand('undo',false,null);"><i class="fa fa-undo"></i> Undo</a>
+        <a href="#" onclick="document.execCommand('redo',false,null);"><i class="fa fa-redo"></i> Redo</a>
+      </div>
+    </li>
+    <li class="dropdown li">
+      <a href="javascript:void(0)" class="dropbtn">Insert</a>
+      <div class="dropdown-content">
+        <a href="#" onclick="document.execCommand('insertImage',false,prompt('Enter Image URL'));"><i
+            class="fa fa-image"></i> Image</a>
+        <a href="#" onclick="document.execCommand('insertUnorderedList',false,null);"><i class="fa fa-list"></i>
+          List</a>
+        <a href="#" onclick="document.execCommand('insertLineBreak',false,null);"><i class="fa fa-ban"></i>
+          Line Break</a>
+        <a href="#" onclick="document.execCommand('insertHTML',false,'<hr>');"><i class="fa fa-grip-lines"></i>
+          Divider</a>
+        <hr>
+        <a href="#" onclick="document.execCommand('createLink',false,prompt('Enter URL'));"><i class="fa fa-link"></i>
+          Link</a>
+        <a href="#" onclick="document.execCommand('unlink',false,null);"><i class="fa fa-unlink"></i> Unlink</a>
+      </div>
+    </li>
+    <li class="dropdown li">
+      <a href="javascript:void(0)" class="dropbtn">About</a>
+      <div class="dropdown-content">
+        <a href="#"><i class="fa fa-location-arrow"></i> Cubic Papers. Version 1.0</a>
+      </div>
+    </li>
+    <li class="li" style="float: right;"><a href="javascript:void(0)"><span id="charmeter">0</span> Characters</a></li>
+    <li class="li" style="float: right;"><a href="javascript:void(0)"><span id="wordmeter">0</span> Words</a></li>
+  </ul>
+
+  <div class="header">
+    <button>
+      <input type="text" id="fontselector" list="fontsList" placeholder="Arial">
+      <datalist id="fontsList">
+        <option style="font-family: arial;">Arial</option>
+        <option style="font-family: Verdana;">Verdana</option>
+        <option style="font-family: tahoma;">Tahoma</option>
+        <option style="font-family: Trebuchet MS;">Trebuchet MS</option>
+        <option style="font-family: Times New Roman;">Times New Roman</option>
+        <option style="font-family: monospace;">Georgia</option>
+        <option style="font-family: Garamond;">Garamond</option>
+        <option style="font-family: Courier New;">Courier New</option>
+        <option style="font-family: Brush Script MT, cursive;">Brush Script MT</option>
+      </datalist>
+    </button>
+    <button onclick="document.execCommand('fontName',false, document.getElementById('fontselector').value);">
+      <i class="fa fa-check"></i>
+    </button>
+
+    <button onchange="document.execCommand('fontSize',false,this.value);">
+      <input type="number" value="3" id="fontsize" min="0" max="7">
+    </button>
+    <button onclick="document.execCommand('fontSize',false, document.getElementById('fontsize').value);">
+      <i class="fa fa-check"></i>
+    </button>
+
+    <button onclick="document.execCommand('bold',false,null);">
+      <i class="fa fa-bold"></i>
+    </button>
+    <button onclick="document.execCommand('underline',false,null);">
+      <i class="fa fa-underline"></i>
+    </button>
+    <button onclick="document.execCommand('italic',false,null);">
+      <i class="fa fa-italic"></i>
+    </button>
+
+    <button onclick="document.execCommand('justifyLeft',false,null);">
+      <i class="fa fa-align-left"></i>
+    </button>
+    <button onclick="document.execCommand('justifyCenter',false,null);">
+      <i class="fa fa-align-center"></i>
+    </button>
+    <button onclick="document.execCommand('justifyRight',false,null);">
+      <i class="fa fa-align-right"></i>
+    </button>
+    <button onclick="document.execCommand('justifyFull',false,null);">
+      <i class="fa fa-align-justify"></i>
+    </button>
+  </div>
+
+  <main contenteditable id="paper"></main>
+</body>
+
+</html>
