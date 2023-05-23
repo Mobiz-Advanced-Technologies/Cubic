@@ -17,6 +17,26 @@
 </head>
 
 <body>
+    <div id="broadcastintro">
+        <div>
+            <h1>Welcome To Broadcast!</h1>
+            <br>
+            <button onclick="startRecording(); this.parentNode.parentNode.style.display = 'none'" style="width: 50%;">
+                <i class="fa fa-desktop"></i>
+                <br><br>
+                Capture Screen
+            </button>
+
+            <input type="file" accept="video/*" onchange="custom_video(event)" id="mediainput" style="display: none;">
+            <button onclick="document.getElementById('mediainput').click(); this.parentNode.parentNode.style.display = 'none'" style="width: 48%;">
+                <i class="fa fa-file-video"></i>
+                <br><br>
+                Upload Video
+            </button>
+            <br><br>
+            <button style="width: 100%;" onclick="this.parentNode.parentNode.style.display = 'none'">Close</button>
+        </div>
+    </div>
     <ul class="ul">
         <li class="dropdown li">
             <a href="javascript:void(0)" class="dropbtn">File</a>
@@ -37,11 +57,10 @@
             </div>
         </li>
         <li class="dropdown li">
-            <a href="javascript:void(0)" class="dropbtn">Controls</a>
+            <a href="javascript:void(0)" class="dropbtn">Source</a>
             <div class="dropdown-content">
-                <a href="#" onclick="video.play()"><i class="fa fa-play"></i> Play</a>
-                <a href="#" onclick="video.pause()"><i class="fa fa-pause"></i> Pause</a>
-                <a href="#" onclick="video.pause(); video.currentTime = 0;"><i class="fa fa-stop"></i> Stop</a>
+                <a href="#" onclick="startRecording()"><i class="fa fa-desktop"></i> Capture Screen</a>
+                <a href="#" onclick="document.getElementById('mediainput').click()"><i class="fa fa-file-video"></i> Upload Video</a>
             </div>
         </li>
 
@@ -56,7 +75,7 @@
             <a href="javascript:void(0)" class="dropbtn">About</a>
             <div class="dropdown-content">
                 <a href="https://github.com/lizheming/Simple2Canvas#simple2canvas" target="_blank"><i class="fa fa-book"></i> Overlay JSON Documentation</a>
-                <a href="#"><i class="fa fa-location-arrow"></i> Cubic Broadcast. Version 1.0</a>
+                <a href="#"><i class="fa fa-location-arrow"></i> Cubic Broadcast. Version 1.1</a>
             </div>
         </li>
 
@@ -66,7 +85,7 @@
         </li>
     </ul>
     <div id="theater">
-        <video id="video" src="bdp.mp4" controls hidden></video>
+        <video id="video" controls hidden autoplay></video>
         <canvas id="canvas" style="background: black; height: calc(100% - 35px);"></canvas>
         <br>
         <button onclick="video.play()" title="Play">
@@ -77,14 +96,6 @@
         </button>
         <button onclick="video.pause(); video.currentTime = 0;" title="Stop">
             <i class="fa fa-stop"></i>
-        </button>
-        |
-        <button onclick="startRecording()" title="Record Screen">
-            <i class="fa fa-desktop"></i>
-        </button>
-        <input type="file" accept="video/*" onchange="custom_video(event)" id="mediainput" style="display: none;">
-        <button onclick="document.getElementById('mediainput').click()" title="Upload Video">
-            <i class="fa fa-file-video"></i>
         </button>
     </div>
     <div id="controls">
