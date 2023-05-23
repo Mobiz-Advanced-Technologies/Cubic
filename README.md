@@ -1,0 +1,2 @@
+# Cubic
+Simple productivity suite
