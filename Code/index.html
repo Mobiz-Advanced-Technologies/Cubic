@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=320, initial-scale=1">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/x-icon" href="icon.png">
+
+  <title>Cubic Code</title>
+
+  <script defer src="cminit.js"></script>
+  <script defer src="script.js"></script>
+  <script src="https://kit.fontawesome.com/970a0290cd.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="codemirror.min.css">
+  <link rel="stylesheet" href="monokai.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/clike/clike.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/go/go.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/ruby/ruby.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/vbscript/vbscript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/xml/xml.min.js"></script>
+
+  <script src="https://codemirror.net/5/addon/mode/simple.js"></script>
+</head>
+
+<body>
+  <ul class="ul">
+    <li class="dropdown li">
+      <a href="javascript:void(0)" class="dropbtn">File</a>
+      <div class="dropdown-content">
+        <a href="#" onclick="savedoc()"><i class="fa fa-save"></i> Save File</a>
+        <a href="#" onclick="importDoc();"><i class="fa fa-folder-open"></i> Open File</a>
+      </div>
+    </li>
+    <li class="dropdown li">
+      <a href="javascript:void(0)" class="dropbtn">Edit</a>
+      <div class="dropdown-content">
+        <a href="#" onclick="document.execCommand('undo',false,null);"><i class="fa fa-undo"></i> Undo</a>
+        <a href="#" onclick="document.execCommand('redo',false,null);"><i class="fa fa-redo"></i> Redo</a>
+      </div>
+    </li>
+    <li class="dropdown li">
+      <a href="javascript:void(0)" class="dropbtn">View</a>
+      <div class="dropdown-content">
+        <a href="#" onclick="fontBigger()"><i class="fa fa-magnifying-glass-plus"></i> Increase Font Size</a>
+        <a href="#" onclick="fontSmaller()"><i class="fa fa-magnifying-glass-minus"></i> Decrease Font Size</a>
+      </div>
+    </li>
+    <li class="dropdown li">
+      <a href="javascript:void(0)" class="dropbtn">About</a>
+      <div class="dropdown-content">
+        <a href="#"><i class="fa fa-location-arrow"></i> Cubic Code. Version 1.0</a>
+      </div>
+    </li>
+    <li class="li" style="float: right;"><a href="javascript:void(0)"><span id="charmeter">0</span> Characters</a></li>
+    <li class="li" style="float: right;"><a href="javascript:void(0)"><span id="wordmeter">0</span> Words</a></li>
+    <li class="li" style="float: right;">
+      <select onchange='codeEditor.setOption("mode", this.value);'>
+        <option>universal</option>
+        <option>clike</option>
+        <option>css</option>
+        <option>go</option>
+        <option>text/html</option>
+        <option>javascript</option>
+        <option>python</option>
+        <option>ruby</option>
+        <option>xml</option>
+        <option>vbscript</option>
+      </select>
+    </li>
+  </ul>
+
+  <textarea contenteditable id="paper"></textarea>
+</body>
+
+</html>
