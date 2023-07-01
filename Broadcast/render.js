@@ -150,7 +150,8 @@ video.addEventListener('play', function () {
 }, 0);
 
 function startRecording() {
-    navigator.mediaDevices.getDisplayMedia({ video: true })
+    // FIX: Add audio for gaming streams that require audio
+    navigator.mediaDevices.getDisplayMedia({ video: true, audio: true })
         .then((stream) => {
             video.srcObject = stream;
         })
