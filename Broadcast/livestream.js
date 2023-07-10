@@ -3,11 +3,11 @@ function startLiveStream() {
 
     receiverWindow.addEventListener('load', function () {
         const receiverVideo = receiverWindow.document.getElementById('receiver-video');
-        const canvasStream = canvas.captureStream();
-        const canvasTrack = canvasStream.getVideoTracks()[0];
-        const canvasMediaStream = new MediaStream([canvasTrack]);
+        const stream = canvas.captureStream();
+        const videoStream = video.captureStream();
+        const combinedStream = new MediaStream([...stream.getTracks(), ...videoStream.getTracks()]);
 
-        receiverVideo.srcObject = canvasMediaStream;
+        receiverVideo.srcObject = combinedStream;
         receiverVideo.play();
     });
 }

@@ -1,8 +1,9 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
-var video = document.getElementById('video');
+var video = document.createElement('video');
 var overlayImg = document.createElement('img');
 
+video.setAttribute("autoplay", "true");
 let mediaRecorder;
 let recordedChunks = [];
 
@@ -10,7 +11,9 @@ function recordCanvas(canvas) {
     document.getElementById('startRecordBtn').style.display = "none";
     document.getElementById('stopRecordBtn').style.display = "inline-block";
     const stream = canvas.captureStream();
-    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+    const videoStream = video.captureStream();
+    const combinedStream = new MediaStream([...stream.getTracks(), ...videoStream.getTracks()]);
+    mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
 
     mediaRecorder.ondataavailable = (event) => {
         recordedChunks.push(event.data);
@@ -97,15 +100,6 @@ function loadOverlay() {
     reader.readAsText(file);
 }
 
-// set canvas size = video size when known
-video.addEventListener('loadedmetadata', function () {
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-
-    options.width = video.videoWidth;
-    options.height = video.videoHeight;
-});
-
 //overlay configuration
 const options = {
     width: 360,
@@ -126,26 +120,30 @@ video.addEventListener('play', function () {
     var $this = this; //cache
 
     //video rendering
-    (function loop() {
+    function loop() {
         if (!$this.paused && !$this.ended) {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+
+            options.width = video.videoWidth;
+            options.height = video.videoHeight;
+
             ctx.drawImage($this, 0, 0);
-            setTimeout(loop, 1000 / 30); // drawing at 30fps
-
             ctx.drawImage(overlayImg, 0, 0);
-        }
-    })();
-
-    //overlay rendering
-    async function myAsyncFunction() {
-        if (!$this.paused && !$this.ended) {
-            let ui = await simple2canvas(options);
-            overlayImg.src = ui.toDataURL();
-
-            setTimeout(myAsyncFunction, 1000 / 30); // max framerate
         }
     }
 
-    myAsyncFunction();
+
+    //overlay rendering
+    async function drawOverlays() {
+        if (!$this.paused && !$this.ended) {
+            let ui = await simple2canvas(options);
+            overlayImg.src = ui.toDataURL();
+        }
+    }
+
+    setInterval(loop, 1);
+    setInterval(drawOverlays, 1);
 
 }, 0);
 
