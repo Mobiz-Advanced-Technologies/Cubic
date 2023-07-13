@@ -142,8 +142,8 @@ video.addEventListener('play', function () {
         }
     }
 
-    setInterval(loop, 1);
-    setInterval(drawOverlays, 1);
+    setInterval(loop, 0);
+    setInterval(drawOverlays, 0);
 
 }, 0);
 
