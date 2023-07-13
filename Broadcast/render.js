@@ -142,8 +142,8 @@ video.addEventListener('play', function () {
         }
     }
 
-    requestAnimationFrame(loop);
-    requestAnimationFrame(drawOverlays);
+    setInterval(loop, 0);
+    setInterval(drawOverlays, 0);
 
 }, 0);
 
