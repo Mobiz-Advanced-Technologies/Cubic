@@ -2,6 +2,9 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var video = document.createElement('video');
 var overlayImg = document.createElement('img');
+var overlayMode = false;
+
+document.documentElement.appendChild(video)
 
 video.setAttribute("autoplay", "true");
 let mediaRecorder;
@@ -10,14 +13,17 @@ let recordedChunks = [];
 function recordCanvas(canvas) {
     document.getElementById('startRecordBtn').style.display = "none";
     document.getElementById('stopRecordBtn').style.display = "inline-block";
+
     const stream = canvas.captureStream();
     const videoStream = video.captureStream();
+
     const combinedStream = new MediaStream([...stream.getTracks(), ...videoStream.getTracks()]);
-    mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm' });
+    mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm;codecs=h264' });
 
     mediaRecorder.ondataavailable = (event) => {
         recordedChunks.push(event.data);
     };
+
     mediaRecorder.onstop = () => {
         const blob = new Blob(recordedChunks, { type: 'video/webm' });
 
@@ -39,6 +45,7 @@ function recordCanvas(canvas) {
 
         recordedChunks = [];
     };
+
     mediaRecorder.start();
 }
 
@@ -118,6 +125,9 @@ function saveOverlay() {
 
 video.addEventListener('play', function () {
     var $this = this; //cache
+    var lastTime = performance.now();
+    var frameCounter = 0;
+    var fpsCounter = 0;
 
     //video rendering
     function loop() {
@@ -130,20 +140,36 @@ video.addEventListener('play', function () {
 
             ctx.drawImage($this, 0, 0);
             ctx.drawImage(overlayImg, 0, 0);
+
+            frameCounter++;
+
+            var currentTime = performance.now();
+            if (currentTime - lastTime >= 1000) {
+                fpsCounter = frameCounter;
+                frameCounter = 0;
+                lastTime = currentTime;
+                document.getElementById('FPSMark').innerText = ('FPS:' + fpsCounter);
+            }
         }
     }
 
 
     //overlay rendering
     async function drawOverlays() {
-        if (!$this.paused && !$this.ended) {
+        if (options.elements.length === 0) {
+            overlayMode = false;
+        } else {
+            overlayMode = true;
+        }
+
+        if (!$this.paused && !$this.ended && overlayMode) {
             let ui = await simple2canvas(options);
             overlayImg.src = ui.toDataURL();
         }
     }
 
-    setInterval(loop, 0);
-    setInterval(drawOverlays, 0);
+    audioTimerLoop(loop, 0)
+    audioTimerLoop(drawOverlays, 0)
 
 }, 0);
 
@@ -164,4 +190,36 @@ function custom_video(event) {
         video.src = reader.result;
     }
     reader.readAsDataURL(event.target.files[0]);
+}
+
+//insane borrowed code from stackoverflow
+function audioTimerLoop(callback, frequency) {
+  var freq = frequency / 1000;
+  var aCtx = new AudioContext();
+
+  var silence = aCtx.createGain();
+  silence.gain.value = 0;
+  silence.connect(aCtx.destination);
+
+  onOSCend();
+
+  var stopped = false;
+  function onOSCend() {
+    var osc = aCtx.createOscillator();
+    osc.onended = onOSCend;
+    osc.connect(silence);
+    osc.start(0);
+    osc.stop(aCtx.currentTime + freq);
+    callback(aCtx.currentTime);
+    if (stopped) {
+      osc.onended = function() {
+        aCtx.close();
+        return;
+      };
+    }
+  };
+
+  return function() {
+    stopped = true;
+  };
 }
