@@ -11,16 +11,21 @@
     body {
       font-family: Arial;
       font-size: 10pt;
-      background: lightcyan;
+      background: #000000;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-image: url('https://source.unsplash.com/1600x900/?night');
     }
 
     #sidebar {
-      width: 20%;
-      background-color: lightblue;
+      width: 5%;
+      background-color: #F2F2F2ab;
+      backdrop-filter: blur(25px);
       float: left;
       height: 100vh;
       background-size: cover;
-      padding: 25px;
+      padding: 5px;
       box-sizing: border-box;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     }
@@ -33,11 +38,14 @@
     }
 
     #main {
-      width: 80%;
+      width: 95%;
       float: right;
       height: 100vh;
       box-sizing: border-box;
+      background-color: #F2F2F299;
       overflow: auto;
+      backdrop-filter: blur(12.5px);
+      padding: 25px;
     }
 
     #sidebar a {
@@ -49,16 +57,18 @@
       box-sizing: border-box;
       text-decoration: none;
       color: black;
+      border: #f2f2f200 solid 1px;
     }
 
-    a:hover {
+    #sidebar a:hover {
       cursor: pointer;
-      background: lightcyan;
+      background: #F2F2F255;
+      border: #f2f2f255 solid 1px;
     }
 
     #sidebar a img {
       display: inline-block;
-      width: 25%;
+      width: 100%;
       margin-right: 10px;
     }
 
@@ -66,60 +76,147 @@
       padding: 10px;
     }
 
-    #Home {
-      display: flex;
-      text-align: center;
-      place-items: center;
-      justify-content: center;
-      height: 100%;
-      box-sizing: border-box;
+    .newDocumentButton {
+      padding: 25px;
+      margin: 15px;
+      background: #F2F2F255;
+      border: #f2f2f255 solid 1px;
+      border-radius: 5px;
+    }
+
+    #main a, #main button {
+      width: fit-content;
+      display: inline-block;
+      height: fit-content;
+      cursor: pointer;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      #sidebar a:hover {
+        cursor: pointer;
+        background: #6d6d6d55;
+        border: #6d6d6d55 solid 1px;
+      }
+
+      #sidebar {
+        background: #6d6d6d55;
+        border-right: #6d6d6d55 solid 1px;
+      }
+
+      #main {
+        background: #1d1d1d88;
+      }
+
+      html {
+        color: white;
+      }
+
+      .newDocumentButton {
+        background: #6d6d6d55;
+        border: #6d6d6d55 solid 1px;
+        color: white;
+      }
     }
   </style>
 </head>
 
 <body>
   <div id="sidebar">
-    <a class="tablinks" href="Papers/" onmouseover="changeLogo('Papers/icon.png')">
+    <a class="tablinks" href="Papers/">
       <img src="Papers/icon.png">
-      Papers
     </a>
 
-    <a class="tablinks" href="Present/" onmouseover="changeLogo('Present/icon.png')">
+    <a class="tablinks" href="Present/">
       <img src="Present/icon.png">
-      Present
     </a>
 
-    <a class="tablinks" href="Tables/" onmouseover="changeLogo('Tables/icon.png')">
+    <a class="tablinks" href="Tables/">
       <img src="Tables/icon.png">
-      Tables
     </a>
 
-    <a class="tablinks" href="Broadcast/" onmouseover="changeLogo('Broadcast/icon.png')">
+    <a class="tablinks" href="Broadcast/">
       <img src="Broadcast/icon.png">
-      Broadcast
     </a>
 
-    <a class="tablinks" href="Code/" onmouseover="changeLogo('Code/icon.png')">
+    <a class="tablinks" href="Code/">
       <img src="Code/icon.png">
-      Code
     </a>
   </div>
-  <div id="main">
-    <div id="Home">
-      <div>
-        <img src="Papers/icon.png" id="cubicLogo">
-        <br><br>
-        <h1>Cubic Productivity Suite</h1>
-        ©2023 Mobiz Advanced Technologies
-      </div>
-    </div>
-  </div>
 
-  <script>
-    function changeLogo(url) {
-      document.getElementById('cubicLogo').src = url;
-    }
-  </script>
+  <div id="main">
+    <h1>Welcome Back!</h1><br>
+
+    <h2>Papers</h2>
+    <a href="Papers/">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        New Document
+      </button>
+    </a>
+    <a href="Papers/?template=templates/resume.html">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        Resume
+      </button>
+    </a>
+
+    <h2>Present</h2>
+    <a href="Present/">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        New Presentation
+      </button>
+    </a>
+    <a href="Present/?template=templates/summary.html">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        Summary
+      </button>
+    </a>
+
+    <h2>Tables</h2>
+    <a href="Tables/">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        New Spreadsheet
+      </button>
+    </a>
+
+    <h2>Broadcast</h2>
+    <a href="Broadcast/">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        New Recording
+      </button>
+    </a>
+
+    <h2>Code</h2>
+    <a href="Code/">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        New Code
+      </button>
+    </a>
+    <a href="Code/?template=templates/html.html">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        HTML Page
+      </button>
+    </a>
+    <a href="Code/?template=templates/java.java">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        Java Application
+      </button>
+    </a>
+    <a href="Code/?template=templates/c.c">
+      <button class="newDocumentButton">
+        <h1>+</h1>
+        C Program
+      </button>
+    </a>
+
+  </div>
 </body>
 
 </html>

@@ -46,3 +46,16 @@ function importDoc() {
 
   reader.readAsText(file);
 }
+
+async function loadTemplate(fileURL) {
+  const get = await fetch(fileURL);
+  const res = await get.text();
+  document.getElementById("paper").innerHTML = "";
+  document.getElementById("paper").innerHTML = res;
+}
+
+const urlParams = new URLSearchParams(window.location.search);
+const template = urlParams.get('template')
+if (template) {
+  loadTemplate(template)
+}
