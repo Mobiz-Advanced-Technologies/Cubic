@@ -13,8 +13,6 @@ main {
   border: lightgray solid 1px;
   min-height: 100vh;
   padding: 8px;
-  background-image: url("paper.jpg");
-  background-repeat: repeat;
   background-size: 100px;
   box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.1);
 }
