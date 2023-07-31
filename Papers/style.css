@@ -8,7 +8,7 @@ body, html {
 }
 
 main {
-  max-width: 75vw;
+  max-width: 800px;
   margin: auto;
   border: lightgray solid 1px;
   min-height: 100vh;
