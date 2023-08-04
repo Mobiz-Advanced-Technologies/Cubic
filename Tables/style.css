@@ -6,6 +6,7 @@ html {
   min-height: 100%;
   font-family: Arial;
   background: palegreen;
+  overflow: hidden;
 }
 
 main {
@@ -20,6 +21,10 @@ main {
 .header {
   background: limegreen;
   width: 100%;
+  height: 37px;
+  display: flex;
+  overflow: auto;
+  overflow-y: hidden;
 }
 
 .header button {
@@ -43,6 +48,7 @@ main {
   padding: 0;
   overflow: hidden;
   background-color: limegreen;
+  height: 43px;
 }
 
 .li {

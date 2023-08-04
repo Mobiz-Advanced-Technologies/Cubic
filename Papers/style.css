@@ -5,6 +5,7 @@ body, html {
   min-height:100%;
   font-family: Arial;
   background: lightcyan;
+  overflow: hidden;
 }
 
 main {
@@ -12,16 +13,20 @@ main {
   margin: auto;
   border: lightgray solid 1px;
   min-height: 100vh;
-  padding: 8px;
+  padding: 20px;
   background-size: 100px;
   box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.1);
   background: white;
+  outline: none;
 }
 
 .header {
   background: lightblue;
-  margin-bottom: 25px;
   width: 100%;
+  height: 37px;
+  display: flex;
+  overflow: auto;
+  overflow-y: hidden;
 }
 
 .header button {
@@ -45,6 +50,7 @@ main {
   padding: 0;
   overflow: hidden;
   background-color: lightblue;
+  height: 43px;
 }
 
 .li {
@@ -99,4 +105,11 @@ main {
   border: none;
   background:lightcyan;
   padding: 5px;
+}
+
+.paperContainer {
+  height: calc(100vh - 80px);
+  overflow: auto;
+  padding: 25px;
+  box-sizing: border-box;
 }
