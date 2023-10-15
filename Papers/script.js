@@ -71,3 +71,22 @@ const template = urlParams.get('template')
 if (template) {
   loadTemplate(template)
 }
+
+document.documentElement.onkeydown = function (e) {
+  if (e.keyCode === 9) {
+    e.preventDefault();
+
+    var editor = document.getElementById("paper");
+    var doc = editor.ownerDocument.defaultView;
+    var sel = doc.getSelection();
+    var range = sel.getRangeAt(0);
+
+    var tabNode = document.createTextNode("\u00a0\u00a0\u00a0\u00a0");
+    range.insertNode(tabNode);
+
+    range.setStartAfter(tabNode);
+    range.setEndAfter(tabNode);
+    sel.removeAllRanges();
+    sel.addRange(range);
+  }
+}
